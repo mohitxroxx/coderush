@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const leaderboard = new mongoose.Schema({
+const removedteams = new mongoose.Schema({
     hacker_id: Number,
     rank: Number,
     score: Number,
@@ -11,4 +11,4 @@ const leaderboard = new mongoose.Schema({
     submitted_at: String,
     level: Number,
 })
-module.exports = mongoose.model("leaderboard", leaderboard) 
+module.exports = mongoose.model("removed teams", removedteams)

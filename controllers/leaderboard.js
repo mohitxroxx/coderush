@@ -1,13 +1,7 @@
 const express=require('express')
 const leaderboard=require('../models/leaderboard')
 const axios=require('axios')
-const connectDB=require('../config/db')
-
-connectDB()
-// const bodyParser=require('body-parser')
-
-const app=express()
-// app.use(bodyParser.json())
+const removedteam = require('../models/removedteam')
 
 const users={
     'bdcoe1':'bdcoe_1',
@@ -26,29 +20,87 @@ module.exports.login=(req,res,next)=>{
 }
 
 module.exports.leaderboard=async()=>{
-    const call=async()=>{
-        // console.log('hi')
+
+        const func=async () => {  
         try{
-                const chk=await leaderboard.find()
-                if(chk>0){
-                    await leaderboard.deleteMany()
-                    console.log('data removed')
-                }
-                const res = await axios.get('https://www.hackerrank.com/rest/contests/eniac23-wildcard/leaderboard?offset=0&limit=2&_=1700119232836', {
-                  headers: {
-                    'User-Agent': 'PostmanRuntime/7.35.0',
-                  },
-                })
-                const data = res.data.models
-                await leaderboard.insertMany(data)
-                console.log(data)
-                // leaderboard.save() 
-            }
-        catch{
-            console.log('error')
+            const res= await axios.get('https://www.hackerrank.com/rest/contests/eniac23-wildcard/leaderboard?offset=0&limit=100&_=1700119232836',{
+                headers:{
+                'User-Agent':'PostmanRuntime/7.35.0',
+            }} );
+              
+            const apiData=res.data.models
+            if((await leaderboard.find()).length==0){
+            await leaderboard.insertMany(apiData);
+            console.log("data inserted");
         }
-        setTimeout(call, 60000)
+       else{
+        (apiData).map(async (e)=>{
+        let alreadyauser=await leaderboard.find({hacker_id:e.hacker_id});
+        if(alreadyauser.length==0){
+            leaderboard.insertMany([e]);
+        }
+        else{
+        await leaderboard.findOneAndReplace( {hacker_id: e.hacker_id},e);
+        }
+       });
+       console.log("data updated");
+       }
+        }
+        catch(error){
+            console.error('Error occured')
+            console.log(error);
+        }
     }
-    call() 
+    setInterval(func, 6000);
+    func()
+}
+
+module.exports.delTeam=async(req,res)=>{
+    const {time,team} =req.body;
+    const func=async ()=>{
+    let alreadydeleteteams=await removedteam.find();
+    let totalteam= await leaderboard.find();
+    let current=[];
+    for(let i=0;i<totalteam.length;i++){
+        let r=0;
+        for(let y=0;y<alreadydeleteteams.length;y++){
+            if(alreadydeleteteams[y].hacker_id==totalteam[i].hacker_id){
+                r++;
+                break;
+            }      
+        }
+        if(r==0){
+            current.push(totalteam[i])
+        }
+     }
+     current.sort((a,b)=>{ return (parseInt(b.rank)-parseInt(a.rank))});
+     let ans=current.splice(0,parseInt(team));
+     console.log(ans);
+    await removedteam.insertMany(ans);
+}
+    setTimeout(func,time*1000);
+    func()
+}
+module.exports.currentTeams=async(req,res)=>{
+   let Teams= await leaderboard.find();
+   let del= await removedteam.find();
+   let current=[];
+ for(let i=0;i<Teams.length;i++){
+    let r=0;
+    for(let y=0;y<del.length;y++){
+        if(del[y].hacker_id==Teams[i].hacker_id){
+            r++;
+            break;
+        }      
+    }
+    if(r==0){
+        current.push(Teams[i]);
+    }
+ }
+   res.send(current);
+}
+module.exports.deletedTeams=async(req,res)=>{
+    let deletedteam=await removedteam.find();
+    res.send(deletedteam);
 }
 

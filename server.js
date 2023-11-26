@@ -2,7 +2,7 @@ const express=require('express')
 const connectDB=require('./config/db')
 const routes=require('./routes/routes')
 
-// connectDB()
+connectDB()
 const app=express()
 app.use(express.json())
 
