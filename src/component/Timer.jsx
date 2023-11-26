@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 function Stopwatch() {
-  const initialDuration = 1 * 5 * 1000; // 5 minutes in milliseconds
+  const initialDuration = 1 * 10 * 1000; // 5 minutes in milliseconds
   const [time, setTime] = useState(initialDuration);
   const [isRunning, setIsRunning] = useState(false);
   const [showTimerBtn, setShowTimerBtn] = useState(true);
@@ -10,20 +10,22 @@ function Stopwatch() {
   useEffect(() => {
     let interval;
     let visibilityTimeout;
+   
 
     if (isRunning && time > 0) {
       interval = setInterval(() => {
         setTime((prevTime) => prevTime - 10); // Decrease by 10 milliseconds for more accuracy
       }, 10);
-    } else if (!isRunning && time <= 0 && showRemainingButtons) {
-      // If the timer has ended, hide the timer button and show the other three buttons for 15 seconds
-      setShowTimerBtn(false);
+    } else if ( time <= 0 ) {
+      // If the timer has ended and remaining buttons are not yet shown, switch visibility
+      setShowTimerBtn(true);
+      setShowRemainingButtons(true);
       visibilityTimeout = setTimeout(() => {
         setShowTimerBtn(false);
-        setShowRemainingButtons(true);
+        setShowRemainingButtons(false); // Reset to false after timeout
         setTime(initialDuration);
         setIsRunning(true);
-      }, 2000);
+      }, 5000); 
     }
 
     return () => {
@@ -55,11 +57,11 @@ function Stopwatch() {
 
   return (
     <div className='w-full flex mt-2  pb-4 gap-28 justify-center'>
-      {showTimerBtn ? (
-        <button className='border w-52 text-secondary text-3xl bg-primary px-3 py-2 rounded-md ' onClick={handleToggle}>
-          {isRunning ? formatTime(time) : 'Start Timer'}
-        </button>
-      ) : (
+      <button className='border w-52 text-secondary text-3xl bg-primary px-3 py-2 rounded-md ' onClick={handleToggle}>
+        {isRunning ? formatTime(time) : 'Start Timer'}
+      </button>
+
+      {showRemainingButtons && (
         <>
           <button className='border w-52 text-secondary text-3xl bg-primary px-3 py-2 rounded-md '>
             coders A
