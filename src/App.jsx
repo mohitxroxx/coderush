@@ -6,21 +6,21 @@ import Header from './component/Header'
 import Leaderboard from './component/Leaderboard'
 import Timer from './component/Timer'
 import background from './assets/background.png'
-import Login from './component/Login'
+import Login from './component/Login' 
+
 
 
 function App() {
   const [count, setCount] = useState(0)
   const containerStyle = {
     backgroundImage: `url(${background})`,
-    backgroundSize: 'cover', // Adjust as needed
+    backgroundSize: 'repeat', // Adjust as needed
    
   };
 
   return (
-    <div style={containerStyle}>
+    <div className="custom-scrollbar" style={containerStyle}>
       <Header/>
-  
       <Timer/>
       <Leaderboard/>
         

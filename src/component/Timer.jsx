@@ -54,7 +54,7 @@ function Stopwatch() {
   };
 
   return (
-    <div className='w-full flex mt-12 pb-12 gap-8 justify-center'>
+    <div className='w-full flex mt-2  pb-4 gap-28 justify-center'>
       {showTimerBtn ? (
         <button className='border w-52 text-secondary text-3xl bg-primary px-3 py-2 rounded-md ' onClick={handleToggle}>
           {isRunning ? formatTime(time) : 'Start Timer'}

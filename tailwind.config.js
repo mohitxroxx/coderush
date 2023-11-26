@@ -11,6 +11,10 @@ export default {
         secondary:'#FAF1D2' , // Button color
         tertiary:'#FDD2B3',
       },
+      width :{
+           custom1: '64%',
+           custom2: '34%',
+      },
     },
 
   },
