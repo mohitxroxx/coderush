@@ -51,7 +51,7 @@ module.exports.leaderboard=async()=>{
             console.log(error);
         }
     }
-    setInterval(func, 6000);
+    setInterval(func, 10000);
     func()
 }
 
@@ -75,10 +75,10 @@ module.exports.delTeam=async(req,res)=>{
      }
      current.sort((a,b)=>{ return (parseInt(b.rank)-parseInt(a.rank))});
      let ans=current.splice(0,parseInt(team));
-     console.log(ans);
+     console.log("removed teams=",team);
     await removedteam.insertMany(ans);
 }
-    setTimeout(func,time*1000);
+    setTimeout(func,time*60000);
     func()
 }
 module.exports.currentTeams=async(req,res)=>{
