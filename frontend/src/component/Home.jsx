@@ -5,7 +5,7 @@ import Leaderboard from './Leaderboard'
 function Home() {
   return (
     <div>
-      <Timer/>
+      <Timer />
       <Leaderboard/>
     </div>
   )

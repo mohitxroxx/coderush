@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import { leaderboardData, deletedteams } from '../data';
 import axios from 'axios';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function Leaderboard() {
   const [leaderboardData, setLeaderboardData] = useState([]);
@@ -8,7 +8,7 @@ function Leaderboard() {
 
   const fetchLeaderboardData = async () => {
     try {
-      const response = await axios.get('https://coderush.onrender.com/api/current');
+      const response = await axios.get(`${BASE_URL}/api/current`);
       setLeaderboardData(response.data);
     } catch (error) {
       console.error('Error fetching leaderboard data:', error);
@@ -17,7 +17,7 @@ function Leaderboard() {
 
   const fetchDeletedTeams = async () => {
     try {
-      const response = await axios.get('https://coderush.onrender.com/api/deleted');
+      const response = await axios.get(`${BASE_URL}/api/deleted`);
       setDeletedTeams(response.data);
     } catch (error) {
       console.error('Error fetching deleted teams data:', error);
@@ -31,7 +31,7 @@ function Leaderboard() {
     // Set up interval to fetch data every 30 seconds
     const intervalId = setInterval(() => {
       fetchLeaderboardData();
-    }, 30000);
+    }, 1000);
 
     // Clear interval on component unmount
     return () => clearInterval(intervalId);
@@ -44,7 +44,7 @@ function Leaderboard() {
     // Set up interval to fetch data every 30 seconds
     const intervalId = setInterval(() => {
       fetchDeletedTeams();
-    }, 30000);
+    }, 1000);
 
     // Clear interval on component unmount
     return () => clearInterval(intervalId);

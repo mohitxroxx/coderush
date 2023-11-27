@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import { useNavigate } from "react-router-dom";
 import newRequest from "../utils/newRequest";
 import axios from 'axios';
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function Login() {
 
@@ -13,7 +14,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://coderush.onrender.com/api/login", { user: username, pass: password });
+      const res = await axios.post(`${BASE_URL}/api/login`, { user: username, pass: password });
   
       if (res.data.success) {
         // If success is true, navigate to the home route
