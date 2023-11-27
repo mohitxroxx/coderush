@@ -23,7 +23,7 @@ module.exports.leaderboard=async()=>{
 
         const func=async () => {  
         try{
-            const res= await axios.get('https://www.hackerrank.com/rest/contests/eniac23-wildcard/leaderboard?offset=0&limit=100&_=1700119232836',{
+            const res= await axios.get(process.env.API,{
                 headers:{
                 'User-Agent':'PostmanRuntime/7.35.0',
             }} );
