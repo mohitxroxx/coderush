@@ -13,7 +13,7 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/login", { user: username, pass: password });
+      const res = await axios.post("https://coderush.onrender.com/api/login", { user: username, pass: password });
   
       if (res.data.success) {
         // If success is true, navigate to the home route

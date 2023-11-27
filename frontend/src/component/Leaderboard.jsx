@@ -8,7 +8,7 @@ function Leaderboard() {
 
   const fetchLeaderboardData = async () => {
     try {
-      const response = await axios.get('/api/current');
+      const response = await axios.get('https://coderush.onrender.com/api/current');
       setLeaderboardData(response.data);
     } catch (error) {
       console.error('Error fetching leaderboard data:', error);
@@ -17,7 +17,7 @@ function Leaderboard() {
 
   const fetchDeletedTeams = async () => {
     try {
-      const response = await axios.get('/api/deleted');
+      const response = await axios.get('https://coderush.onrender.com/api/deleted');
       setDeletedTeams(response.data);
     } catch (error) {
       console.error('Error fetching deleted teams data:', error);

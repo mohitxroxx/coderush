@@ -60,7 +60,7 @@ function Stopwatch() {
 
   const fetchDeletedTeams = async () => {
     try {
-      const response = await axios.get('/api/deleted');
+      const response = await axios.get('https://coderush.onrender.com/api/deleted');
       setDeletedTeams(response.data);
     } catch (error) {
       console.error('Error fetching deleted teams data:', error);
@@ -69,7 +69,7 @@ function Stopwatch() {
 
   const deleteToggle = () => {
     axios
-      .post('/api/removeteam', {
+      .post('https://coderush.onrender.com/api/removeteam', {
         time: '1',
         team: '1',
       })
