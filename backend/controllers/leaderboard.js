@@ -56,30 +56,35 @@ module.exports.leaderboard=async()=>{
 }
 
 module.exports.delTeam=async(req,res)=>{
-    const {time,team} =req.body;
-    const func=async ()=>{
-    let alreadydeleteteams=await removedteam.find();
-    let totalteam= await leaderboard.find();
-    let current=[];
-    for(let i=0;i<totalteam.length;i++){
-        let r=0;
-        for(let y=0;y<alreadydeleteteams.length;y++){
-            if(alreadydeleteteams[y].hacker_id==totalteam[i].hacker_id){
-                r++;
-                break;
-            }      
-        }
-        if(r==0){
-            current.push(totalteam[i])
-        }
-     }
-     current.sort((a,b)=>{ return (parseInt(b.rank)-parseInt(a.rank))});
-     let ans=current.splice(0,parseInt(team));
-     console.log("removed teams=",team);
-    await removedteam.insertMany(ans);
-}
+    const {time,team,user,pass} =req.body;
+    if(users[user] && users[user] == pass){
+        const func=async ()=>{
+        let alreadydeleteteams=await removedteam.find();
+        let totalteam= await leaderboard.find();
+        let current=[];
+        for(let i=0;i<totalteam.length;i++){
+            let r=0;
+            for(let y=0;y<alreadydeleteteams.length;y++){
+                if(alreadydeleteteams[y].hacker_id==totalteam[i].hacker_id){
+                    r++;
+                    break;
+                }      
+            }
+            if(r==0){
+                current.push(totalteam[i])
+            }
+         }
+         current.sort((a,b)=>{ return (parseInt(b.rank)-parseInt(a.rank))});
+         let ans=current.splice(0,parseInt(team));
+         console.log("removed teams=",team);
+        await removedteam.insertMany(ans);
+    }
     setTimeout(func,time*60000);
     func()
+}
+    else{
+    res.json({success:false,message:'Hack nhi ho ne wala bro'})
+    }
 }
 module.exports.currentTeams=async(req,res)=>{
    let Teams= await leaderboard.find();
