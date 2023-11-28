@@ -82,8 +82,8 @@ module.exports.delTeam=async(req,res)=>{
          console.log("removed teams=",team);
         await removedteam.insertMany(ans);
     }
-    setInterval(func,time*60000);
-    func()
+    setInterval(() => func(),time*60000);
+    // func()
 }
     else{
     res.json({success:false,message:'Hack nhi ho ne wala bro'})
