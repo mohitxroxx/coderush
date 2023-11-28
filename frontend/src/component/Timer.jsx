@@ -3,12 +3,13 @@ import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function Timer() {
-  const initialDuration = (12 * 50 * 1000)-10000; // 5 minutes in milliseconds
+  const initialDuration = (10*60 * 1000); // 5 minutes in milliseconds
   const [time, setTime] = useState(initialDuration);
   const [isRunning, setIsRunning] = useState(false);
   const [showTimerBtn, setShowTimerBtn] = useState(true);
   const [showRemainingButtons, setShowRemainingButtons] = useState(false);
   const [deletedTeams, setDeletedTeams] = useState([]);
+  const [eliminationNames, setEliminationNames] = useState(false)
 
   useEffect(() => {
     // let interval;
@@ -16,16 +17,18 @@ function Timer() {
 
     if (isRunning && time > 0) {
       const interval = setInterval(() => {
-        setTime((prevTime) => prevTime - 10);
+        setTime((prevTime) => prevTime-10 );
       }, 10);
       return () => clearInterval(interval);
     } else if (time <= 0) {
+      setTime(initialDuration);
       setShowTimerBtn(true);
       setShowRemainingButtons(true);
+      setEliminationNames(true);
       visibilityTimeout = setTimeout(() => {
         setShowTimerBtn(false);
         setShowRemainingButtons(false);
-        setTime(initialDuration);
+        
         setIsRunning(true);
       }, 5000);
       return ()=> clearTimeout(visibilityTimeout);
@@ -44,6 +47,11 @@ function Timer() {
       setShowRemainingButtons(false);
     }
   };
+
+  useEffect(()=>{
+    const timeout = setTimeout(()=>setEliminationNames(false), 10000);
+    return () => clearTimeout(timeout);
+  },[eliminationNames])
 
   const formatTime = (timeInMilliseconds) => {
     const minutes = Math.floor((timeInMilliseconds / (1000 * 60)) % 60);
@@ -76,8 +84,8 @@ function Timer() {
     ;
   }, []); // Empty dependency array to run only once on mount
 
-  const targetHours = 21;
-  const targetMinutes =53;
+  const targetHours = 22;
+  const targetMinutes =40;
 
   // ... (rest of your component code
 
@@ -119,7 +127,7 @@ function Timer() {
       <button className='border w-52 text-secondary text-3xl bg-primary px-3 py-2 rounded-md '>
         {isRunning ? formatTime(time) : 'Timer'}
       </button>
-      {showRemainingButtons &&
+      {eliminationNames &&
         deletedTeams.slice(0, 3).map((team, index) => (
           <button key={index} className='border w-52 text-secondary text-2xl bg-primary px-3 py-2 rounded-md '>
             {team.hacker}
