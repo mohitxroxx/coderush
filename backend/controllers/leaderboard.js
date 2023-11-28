@@ -74,7 +74,7 @@ module.exports.delTeam=async(req,res)=>{
                 current.push(totalteam[i])
             }
          }
-         current.sort((a,b)=>{ return (parseInt(b.rank)-parseInt(a.rank))});
+         current.sort((a,b)=>{ return (parseInt(b.index)-parseInt(a.index))});
          let ans=current.splice(0,parseInt(team));
          console.log("removed teams=",team);
         await removedteam.insertMany(ans);
@@ -108,4 +108,5 @@ module.exports.deletedTeams=async(req,res)=>{
     let deletedteam=await removedteam.find();
     res.send(deletedteam);
 }
+
 
