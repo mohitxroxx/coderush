@@ -77,7 +77,7 @@ function Timer() {
   }, []); // Empty dependency array to run only once on mount
 
   const targetHours = 21;
-  const targetMinutes =45;
+  const targetMinutes =53;
 
   // ... (rest of your component code
 
