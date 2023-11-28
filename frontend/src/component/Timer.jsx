@@ -3,7 +3,7 @@ import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function Timer() {
-  const initialDuration = 6 * 50 * 1000; // 5 minutes in milliseconds
+  const initialDuration = (12 * 50 * 1000)-10000; // 5 minutes in milliseconds
   const [time, setTime] = useState(initialDuration);
   const [isRunning, setIsRunning] = useState(false);
   const [showTimerBtn, setShowTimerBtn] = useState(true);
