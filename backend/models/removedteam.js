@@ -10,5 +10,8 @@ const removedteams = new mongoose.Schema({
     timestamp: Number,
     submitted_at: String,
     level: Number,
-})
+},{
+    timestamps:true
+}
+    )
 module.exports = mongoose.model("removed teams", removedteams)
