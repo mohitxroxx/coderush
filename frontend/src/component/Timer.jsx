@@ -58,7 +58,7 @@ function Timer() {
     const seconds = Math.floor((timeInMilliseconds / 1000) % 60);
     const milliseconds = Math.floor(timeInMilliseconds % 1000);
 
-    return `${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')} : ${String(milliseconds).padStart(3, '0')}`;
+    return `${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')} : ${String(milliseconds/10).padStart(3, '0')}`;
   };
 
   const fetchDeletedTeams = async () => {
@@ -85,7 +85,7 @@ function Timer() {
   }, []); // Empty dependency array to run only once on mount
 
   const targetHours = 22;
-  const targetMinutes =45;
+  const targetMinutes =55;
 
   // ... (rest of your component code
 
