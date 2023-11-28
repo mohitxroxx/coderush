@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios';
+import Temp from './temp'
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function Leaderboard() {
@@ -19,6 +20,7 @@ function Leaderboard() {
     try {
       const response = await axios.get(`${BASE_URL}/api/deleted`);
       setDeletedTeams(response.data);
+      console.log(response.data)
     } catch (error) {
       console.error('Error fetching deleted teams data:', error);
     }
@@ -97,11 +99,10 @@ function Leaderboard() {
         </div>
         
         <div className=" right pt-2 h-auto  text-sm sm:text-xl  w-full sm:w-custom2  text-primary font-bold flex text-center justify-center space-x-0 sm:space-x-2 rounded-xl bg-tertiary left">
-            <div><h1 className='text-2xl'>Out At</h1>
+            <div><h1 className='text-2xl'>Out</h1>
             {sortedDeletedTeam.map((team, index) => (
-          <div key={index}>
-            <p>{team.index}</p>
-          </div>
+             
+          <Temp updatedAt={team.updatedAt}/>
         ))}
             </div>
             

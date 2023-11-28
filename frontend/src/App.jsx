@@ -19,7 +19,8 @@ function App() {
   const [count, setCount] = useState(0)
   const containerStyle = {
     backgroundImage: `url(${background})`,
-    backgroundSize: 'auto', // Adjust as needed
+    backgroundSize: 'cover', // Adjust as needed
+    backgroundRepeat: 'no-repeat',
    
   };
 
