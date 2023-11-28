@@ -112,7 +112,7 @@ function Timer() {
     };
   }, []);
 
-  const sortedDeletedTeam = [...deletedTeams].sort((a, b) => b.score - a.score);
+  // const sortedDeletedTeam = [...deletedTeams].sort((a, b) => b.score - a.score);
 
   return (
     <div className='w-full flex mt-2  pb-4 gap-28 justify-center'>
@@ -120,7 +120,7 @@ function Timer() {
         {isRunning ? formatTime(time) : 'Timer'}
       </button>
       {showRemainingButtons &&
-        sortedDeletedTeam.slice(0, 3).map((team, index) => (
+        deletedTeams.slice(0, 3).map((team, index) => (
           <button key={index} className='border w-52 text-secondary text-2xl bg-primary px-3 py-2 rounded-md '>
             {team.hacker}
           </button>

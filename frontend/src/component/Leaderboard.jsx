@@ -54,7 +54,7 @@ function Leaderboard() {
   
   
   const sortedData = [...leaderboardData].sort((a, b) => b.score - a.score);
-  const sortedDeletedTeam = [...deletedTeams].sort((a, b) => b.score - a.score);
+  // const sortedDeletedTeam = [...deletedTeams].sort((a, b) => b.score - a.score);
   const numberOfParticipants = leaderboardData.length;
   return (
 
@@ -100,21 +100,21 @@ function Leaderboard() {
         
         <div className=" right pt-2 h-auto  text-sm sm:text-xl  w-full sm:w-custom2  text-primary font-bold flex text-center justify-center space-x-0 sm:space-x-2 rounded-xl bg-tertiary left">
             <div><h1 className='text-2xl'>Out</h1>
-            {sortedDeletedTeam.map((team, index) => (
+            {deletedTeams.map((team, index) => (
              
           <Temp updatedAt={team.updatedAt}/>
         ))}
             </div>
             
            <div><h1 className='text-2xl'>Teams</h1>
-           {sortedDeletedTeam.map((team, index) => (
+           {deletedTeams.map((team, index) => (
           <div key={index}>
             <p>{team.hacker}</p>
           </div>
         ))}
            </div>
            <div><h1 className='text-2xl'>Points</h1>
-           {sortedDeletedTeam.map((team, index) => (
+           {deletedTeams.map((team, index) => (
           <div key={index}>
             <p>{team.score}</p>
           </div>

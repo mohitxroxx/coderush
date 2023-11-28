@@ -62,6 +62,9 @@ module.exports.delTeam=async(req,res)=>{
         let alreadydeleteteams=await removedteam.find();
         let totalteam= await leaderboard.find();
         let current=[];
+        if(totalteam-team<5)   {
+            return;
+        }
         for(let i=0;i<totalteam.length;i++){
             let r=0;
             for(let y=0;y<alreadydeleteteams.length;y++){
@@ -105,8 +108,12 @@ module.exports.currentTeams=async(req,res)=>{
    res.send(current);
 }
 module.exports.deletedTeams=async(req,res)=>{
-    let deletedteam=await removedteam.find();
+    let deletedteam=await removedteam.find().sort({
+        updatedAt:-1,
+    });
+    console.log(deletedteam);
     res.send(deletedteam);
+    
 }
 
 
