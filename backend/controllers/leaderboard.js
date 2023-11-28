@@ -80,7 +80,7 @@ module.exports.delTeam=async(req,res)=>{
         await removedteam.insertMany(ans);
     }
     setInterval(func,time*60000);
-    // func()
+    func()
 }
     else{
     res.json({success:false,message:'Hack nhi ho ne wala bro'})
