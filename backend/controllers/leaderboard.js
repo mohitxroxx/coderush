@@ -79,7 +79,7 @@ module.exports.delTeam=async(req,res)=>{
          console.log("removed teams=",team);
         await removedteam.insertMany(ans);
     }
-    setTimeout(func,time*60000);
+    setInterval(func,time*60000);
     func()
 }
     else{
