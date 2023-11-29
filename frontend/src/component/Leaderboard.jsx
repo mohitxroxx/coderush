@@ -53,7 +53,7 @@ function Leaderboard() {
   }, []); // Empty dependency array to run only once on mount
   
   
-  const sortedData = [...leaderboardData].sort((a, b) => b.score - a.score);
+  const sortedData = [...leaderboardData].sort((a, b) => b.index - a.index);
   // const sortedDeletedTeam = [...deletedTeams].sort((a, b) => b.score - a.score);
   const numberOfParticipants = leaderboardData.length;
   return (
