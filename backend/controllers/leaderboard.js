@@ -40,6 +40,22 @@ const func=async () => {
         console.log(error);
     }
 }
+// function ultimatesorting(a,b){
+//     if (a.score < b.score) {
+//         return 1; // b comes first
+//       } else if (a.score > b.score) {
+//         return -1; // a comes first
+//       } else {
+//         // If scores are equal, compare by time
+//         if (a.time_taken < b.time_taken) {
+//           return -1; // a comes first
+//         } else if (a.time_taken > b.time_taken) {
+//           return 1; // b comes first
+//         } else {
+//           return 0; // no change in order
+//         }
+//       }
+// }
 
 module.exports.login=(req,res,next)=>{
     const{user,pass}=req.body
@@ -77,7 +93,7 @@ module.exports.delTeam=async(req,res)=>{
                 current.push(totalteam[i])
             }
          }
-         current.sort((a,b)=>{ return (parseInt(b.index)-parseInt(a.index))});
+         current.sort((a,b)=>{return (a.score-b.score|| b.time_taken-a.time_taken)});
          let ans=current.splice(0,parseInt(team));
          console.log("removed teams=",team);
         await removedteam.insertMany(ans);
@@ -107,8 +123,10 @@ module.exports.currentTeams=async(req,res)=>{
     }
  }
  current.sort((a,b)=>{
-    return (parseInt(a.index)-parseInt(a.index))
+    b.score - a.score || a.time_taken - b.time_taken
  });
+    
+ console.log(current);
    res.send(current);
 }
 module.exports.deletedTeams=async(req,res)=>{
