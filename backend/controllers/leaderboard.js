@@ -51,8 +51,8 @@ module.exports.leaderboard=async()=>{
             console.log(error);
         }
     }
-    setInterval(func, 10000);
-    func()
+    let inte=  setInterval(func, 10000);
+    return ()=>clearInterval(inte);
 }
 
 module.exports.delTeam=async(req,res)=>{
@@ -106,6 +106,9 @@ module.exports.currentTeams=async(req,res)=>{
         current.push(Teams[i]);
     }
  }
+ current.sort((a,b)=>{
+    return (parseInt(a.index)-parseInt(a.index))
+ });
    res.send(current);
 }
 module.exports.deletedTeams=async(req,res)=>{
