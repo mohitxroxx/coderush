@@ -21,6 +21,7 @@ function App() {
     backgroundImage: `url(${background})`,
     backgroundSize: 'cover', // Adjust as needed
     backgroundRepeat: 'no-repeat',
+    height: '100vh',
    
   };
 
