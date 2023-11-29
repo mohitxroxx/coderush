@@ -3,7 +3,7 @@ import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function Timer() {
-  const initialDuration = (2*60 * 1000);
+  const initialDuration = (10*60 * 1000);
   const [time, setTime] = useState(initialDuration);
   const [isRunning, setIsRunning] = useState(false);
   const [showTimerBtn, setShowTimerBtn] = useState(true);
@@ -91,8 +91,8 @@ function Timer() {
     ;
   }, []); // Empty dependency array to run only once on mount
 
-  const targetHours = 12;
-  const targetMinutes =1;
+  const targetHours = 18;
+  const targetMinutes =43;
 
   // ... (rest of your component code
 
