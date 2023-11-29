@@ -3,7 +3,7 @@ import axios from 'axios';
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 function Timer() {
-  const initialDuration = (10*60 * 1000); // 5 minutes in milliseconds
+  const initialDuration = (2*60 * 1000);
   const [time, setTime] = useState(initialDuration);
   const [isRunning, setIsRunning] = useState(false);
   const [showTimerBtn, setShowTimerBtn] = useState(true);
@@ -17,8 +17,8 @@ function Timer() {
 
     if (isRunning && time > 0) {
       const interval = setInterval(() => {
-        setTime((prevTime) => prevTime-10 );
-      }, 10);
+        setTime((prevTime) => prevTime-1000 );
+      },1000);
       return () => clearInterval(interval);
     } else if (time <= 0) {
       setTime(initialDuration);
@@ -54,12 +54,19 @@ function Timer() {
   },[eliminationNames])
 
   const formatTime = (timeInMilliseconds) => {
-    const minutes = Math.floor((timeInMilliseconds / (1000 * 60)) % 60);
+    const minutes = Math.floor((timeInMilliseconds / (1000 * 60)) % 60); //ye wala only mins sec ke liye hai
     const seconds = Math.floor((timeInMilliseconds / 1000) % 60);
-    const milliseconds = Math.floor(timeInMilliseconds % 1000);
-
-    return `${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')} : ${String(milliseconds/10).padStart(3, '0')}`;
+  
+    return `${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')}`;
   };
+  
+  // const formatTime = (timeInMilliseconds) => {
+  //   const minutes = Math.floor((timeInMilliseconds / (1000 * 60)) % 60); //ye for teeno
+  //   const seconds = Math.floor((timeInMilliseconds / 1000) % 60);
+  //   const milliseconds = Math.floor(timeInMilliseconds % 1000);
+
+  //   return `${String(minutes).padStart(2, '0')} : ${String(seconds).padStart(2, '0')} : ${String(milliseconds/10).padStart(3, '0')}`;
+  // };
 
   const fetchDeletedTeams = async () => {
     try {
@@ -84,8 +91,8 @@ function Timer() {
     ;
   }, []); // Empty dependency array to run only once on mount
 
-  const targetHours = 23;
-  const targetMinutes =15;
+  const targetHours = 12;
+  const targetMinutes =1;
 
   // ... (rest of your component code
 
