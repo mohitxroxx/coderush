@@ -10,6 +10,36 @@ const users={
     'bdcoe4':'bdcoe_4',
     'bdcoe5':'bdcoe_5'
 }
+const func=async () => {  
+    try{
+        const res= await axios.get(process.env.API,{
+            headers:{
+            'User-Agent':'PostmanRuntime/7.35.0',
+        }} );
+          
+        const apiData=res.data.models
+        if((await leaderboard.find()).length==0){
+        await leaderboard.insertMany(apiData);
+        console.log("data inserted");
+    }
+   else{
+    (apiData).map(async (e)=>{
+    let alreadyauser=await leaderboard.find({hacker_id:e.hacker_id});
+    if(alreadyauser.length==0){
+        leaderboard.insertMany([e]);
+    }
+    else{
+    await leaderboard.findOneAndReplace( {hacker_id: e.hacker_id},e);
+    }
+   });
+   console.log("data updated");
+   }
+    }
+    catch(error){
+        console.error('Error occured')
+        console.log(error);
+    }
+}
 
 module.exports.login=(req,res,next)=>{
     const{user,pass}=req.body
@@ -19,39 +49,9 @@ module.exports.login=(req,res,next)=>{
     res.json({success:false,message:'Invalid credentials'})
 }
 
-module.exports.leaderboard=async()=>{
-
-        const func=async () => {  
-        try{
-            const res= await axios.get(process.env.API,{
-                headers:{
-                'User-Agent':'PostmanRuntime/7.35.0',
-            }} );
-              
-            const apiData=res.data.models
-            if((await leaderboard.find()).length==0){
-            await leaderboard.insertMany(apiData);
-            console.log("data inserted");
-        }
-       else{
-        (apiData).map(async (e)=>{
-        let alreadyauser=await leaderboard.find({hacker_id:e.hacker_id});
-        if(alreadyauser.length==0){
-            leaderboard.insertMany([e]);
-        }
-        else{
-        await leaderboard.findOneAndReplace( {hacker_id: e.hacker_id},e);
-        }
-       });
-       console.log("data updated");
-       }
-        }
-        catch(error){
-            console.error('Error occured')
-            console.log(error);
-        }
-    }
+module.exports.leaderboard=async(req,res)=>{
     let inte=  setInterval(func, 10000);
+    res.send("hello");
     return ()=>clearInterval(inte);
 }
 
