@@ -62,7 +62,7 @@ function Leaderboard() {
     <div className='w-full flex h-auto  justify-center  bg-transparent'>
         
       <div className=' w-11/12 p-4 gap-4  rounded-md   bg-primary'>
-      <div className="participant text-xl font-medium text-center text-secondary">
+      <div className="participant text-3xl font-medium text-center text-secondary">
             <h1>No of participants left : {numberOfParticipants}</h1>
         </div>
         <div className='justify-center w-full p-4 gap-4  flex flex-wrap'>
