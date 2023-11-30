@@ -66,7 +66,7 @@ module.exports.login=(req,res,next)=>{
 }
 
 module.exports.leaderboard=async(req,res)=>{
-    let inte=  setInterval(func, 10000);
+    let inte=  setInterval(func, 5000);
     res.send("hello");
     return ()=>clearInterval(inte);
 }
